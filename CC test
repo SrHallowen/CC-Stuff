@@ -19,11 +19,39 @@ if not monitor then
     return
 end
 
--- Set the monitor to use for output
-term.redirect(monitor)
+-- Clear the monitor and set text scale
+monitor.clear()
+monitor.setTextScale(0.5)
 
--- Run the Codelock program
-shell.run("Codelock")
+-- Setting the code and creating the input
+function checkcode()
+    monitor.setCursorPos(4, 5)
+    monitor.write("Enter Code: ")
+    monitor.setCursorPos(7, 6)    
+    local input = read()
 
--- Reset output to default terminal
-term.restore()
+    -- Confirming if the code is right
+    if input == "4548" then
+        monitor.clear()
+        monitor.setCursorPos(4, 5)
+        monitor.write("Unlocking!")
+        -- Outputting redstone signal
+        redstone.setOutput("right", true)
+        sleep(3)
+        redstone.setOutput("right", false)
+    else
+        monitor.clear()
+        monitor.setCursorPos(3, 5)
+        monitor.write("Invalid Code")
+        sleep(3)
+    end
+end
+
+-- Clearing and looping
+while true do 
+    checkcode()
+    monitor.clear()
+    monitor.setCursorPos(3, 5)
+    monitor.write("Restarting..")
+    sleep(2)
+end
