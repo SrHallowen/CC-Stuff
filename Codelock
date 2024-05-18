@@ -1,0 +1,41 @@
+--finding monitor and clearing any previous text
+local monitor = peripheral.find("monitor")
+term.clear()
+monitor.setTextScale(0.5)
+--Setting the code and creating the input
+function checkcode()
+    monitor.setCursorPos(4,5)
+    print("Enter Code")
+    monitor.setCursorPos(7,6)    
+    local input = read()
+--Confirming if the code is right
+    if input == "4548" then
+    term.clear()
+    monitor.setCursorPos(7,7)
+--Printing true
+       monitor.setCursorPos(4,5)
+       print("Unlocking!")
+--outputting redstone signal
+      redstone.setOutput("right", true)
+      redstone.setOutput("left", true) 
+      sleep(3)
+      redstone.setOutput("right", false)
+      redstone.setOutput("left", false)
+--code is incorrect
+    else
+         term.clear()
+         monitor.setCursorPos(3,5)
+         print("Invalid Code")
+         sleep(3)
+    end
+end
+--clearing and looping
+while true do 
+    checkcode()
+    term.clear()
+    monitor.setCursorPos(3,5)
+    print("Restarting..")
+    sleep(2)
+    term.clear()
+end
+
